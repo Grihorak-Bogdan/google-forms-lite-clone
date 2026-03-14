@@ -1,12 +1,15 @@
 const express = require('express');
-const { createHandler } = require('graphql-http/lib/use/express');
+const cors = require('cors');
+const path = require('path');
+const { createHandler } = require('graphql-http/lib/use/express'); // Імпортуємо graphql-http
 const { buildSchema } = require('graphql');
-
 
 const app = express();
 
+// Додаємо CORS middleware
+app.use(cors());
 
-// 1. СПОЧАТКУ ОГОЛОШУЄМО СХЕМУ
+// Оголошуємо GraphQL схему
 const schema = buildSchema(`
   enum QuestionType {
     TEXT
@@ -16,6 +19,7 @@ const schema = buildSchema(`
   }
 
   input QuestionInput {
+    id: ID
     type: QuestionType
     text: String
     options: [String]
@@ -65,7 +69,7 @@ const schema = buildSchema(`
   }
 `);
 
-// 2. ДАНІ ТА ЛОГІКА (ROOT)
+// Логіка для GraphQL
 let forms = [];
 let responses = [];
 
@@ -73,7 +77,6 @@ const root = {
   forms: () => forms,
   form: ({ id }) => forms.find(f => f.id === id),
   responses: ({ formId }) => responses.filter(r => r.formId === formId),
-
   createForm: ({ title, description, questions }) => {
     const newForm = {
       id: String(forms.length + 1),
@@ -81,13 +84,12 @@ const root = {
       description,
       questions: (questions || []).map((q, index) => ({
         ...q,
-        id: String(index + 1),
+        id: q.id || String(index + 1),
       })),
     };
-    forms.push(newForm);
+    forms.unshift(newForm);
     return newForm;
   },
-
   submitResponse: ({ formId, answers }) => {
     const newResponse = {
       id: String(responses.length + 1),
@@ -107,12 +109,11 @@ const root = {
     if (questions) {
       form.questions = questions.map((q, index) => ({
         ...q,
-        id: String(index + 1),
+        id: q.id || String(index + 1),
       }));
     }
     return form;
   },
-
   deleteForm: ({ id }) => {
     const index = forms.findIndex(f => f.id === id);
     if (index === -1) {
@@ -123,30 +124,41 @@ const root = {
   },
 };
 
-// 3. ПІДКЛЮЧАЄМО ОБРОБНИК (ПІСЛЯ ТОГО ЯК SCHEMA ТА ROOT ВИЗНАЧЕНІ)
+// Підключення обробника для GraphQL
 app.all('/graphql', createHandler({
   schema: schema,
   rootValue: root,
 }));
 
-// Допоміжний інтерфейс для тестування
+// Додамо статичні файли для GraphiQL
+// app.use('/graphiql', express.static(path.join(__dirname, 'node_modules', 'graphiql'))); // Зазначте шлях до локальних файлів
+
+// GUI для тестування GraphiQL
 app.get('/gui', (req, res) => {
   res.send(`
-    <html>
-      <head><title>GraphiQL</title><link href="https://unpkg.com/graphiql/graphiql.min.css" rel="stylesheet" /></head>
-      <body style="margin: 0;"><div id="graphiql" style="height: 100vh;"></div>
-        <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
-        <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
-        <script src="https://unpkg.com/graphiql/graphiql.min.js"></script>
-        <script>
-          const fetcher = GraphiQL.createFetcher({ url: '/graphql' });
-          ReactDOM.render(React.createElement(GraphiQL, { fetcher }), document.getElementById('graphiql'));
-        </script>
-      </body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>GraphiQL</title>
+      <link href="https://unpkg.com/graphiql@3.0.10/graphiql.min.css" rel="stylesheet" />
+    </head>
+    <body style="margin: 0;">
+      <div id="graphiql" style="height: 100vh;"></div>
+      <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+      <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+      <script src="https://unpkg.com/graphiql@3.0.10/graphiql.min.js"></script>
+      <script>
+        const fetcher = GraphiQL.createFetcher({ url: '/graphql' });
+        ReactDOM.render(React.createElement(GraphiQL, { fetcher }), document.getElementById('graphiql'));
+      </script>
+    </body>
     </html>
   `);
 });
 
+// Запускаємо сервер
 app.listen(4000, () => {
   console.log('🚀 Server: http://localhost:4000/graphql');
   console.log('📊 GUI: http://localhost:4000/gui');

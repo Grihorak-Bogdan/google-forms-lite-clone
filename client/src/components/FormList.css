@@ -1,0 +1,80 @@
+.title {
+    font-size: 66px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+
+.create-button {
+    color: var(--bg-main);
+    display: inline-block;
+    padding: 5rem 2rem;
+    background-color: #694873;
+    text-align: center;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+
+}
+.create-button:hover {
+    background-color: var(--action-color); /* Ваш фіолетовий #694873 */
+    color: var(--bg-main);
+    transform: translateY(-3px); /* Легке підняття вгору */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.header {
+    display: flex  ;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+
+
+
+
+/* Контейнер для списку */
+.forms-grid {
+    list-style: none; /* Прибираємо маркери точок */
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* Чотири колонки */
+    gap: 16px; /* Відстань між кнопками */
+    margin-top: 20px;
+}
+
+/* Елемент списку (не обов'язково, але корисно для скидання відступів) */
+.form-item {
+    margin: 0;
+}
+
+/* Сама "кнопка" (посилання) */
+.form-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100px; /* Робимо їх високими, як картки */
+    padding: 20px;
+    
+    background-color: var(--accent-soft); /* Ваш м'ятний #85B79D */
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Ефект при наведенні */
+.form-link:hover {
+    background-color: var(--action-color); /* Ваш фіолетовий #694873 */
+    color: var(--bg-main);
+    transform: translateY(-3px); /* Легке підняття вгору */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

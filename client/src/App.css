@@ -28,6 +28,12 @@
   color: #61dafb;
 }
 
+.logo {
+  font-family: Arial, Helvetica, sans-serif;
+  
+  margin: 4rem 0 0 2rem;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +41,51 @@
   to {
     transform: rotate(360deg);
   }
+}
+/* Global */
+.font-family-sans-serif {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.section {
+    max-width: 1300px;
+    margin: 0 auto;
+    align-items: center;
+    padding: 1rem 2rem;
+
+}
+
+/* App */
+
+.app {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+}
+
+.navbar {
+  background-color: var(--text-dark);
+
+}
+
+.nav-logo {
+  color: var(--bg-main);
+  font-size: 24px;
+  font-weight: bold;
+  padding: 1rem;
+  z-index: 1000;
+  position: sticky;
+}
+
+.nav-container {
+  max-width: 1800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  
+  font-size: 24px;
 }

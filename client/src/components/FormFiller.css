@@ -1,0 +1,41 @@
+.form-filler {
+    background-color: var(--accent-soft); /* Ваш м'ятний #C0E5C8 */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 20px auto;
+    color: var(--text-dark);
+    font-size: 19px;
+    font-weight: 500;
+    border: 2px solid var(--text-dark); /* Ваш м'ятний #85B79D */
+}
+
+.form-filler-font h2{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.form-board {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btn {
+    background-color: var(--action-color); /* Ваш фіолетовий #694873 */
+    color: var(--bg-main);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-input {
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--text-dark); /* Ваш глибокий #16302B */
+    border-radius: 4px;
+    font-size: 1rem;
+}
