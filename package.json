@@ -1,7 +1,7 @@
 {
   "name": "google-forms-lite-clone",
   "version": "1.0.0",
-  "description": "",
+  "description": "Create a simplified clone of Google Forms with core functionality for form creation, viewing, and submission. The project must be structured as a monorepo, utilizing TypeScript, React, and Redux on the front-end, and a simple GraphQL server on the back-end for data storage. ",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bohdan Hryhoriak",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^9.2.1"

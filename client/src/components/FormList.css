@@ -19,9 +19,9 @@
 
 }
 .create-button:hover {
-    background-color: var(--action-color); /* Ваш фіолетовий #694873 */
+    background-color: var(--action-color); 
     color: var(--bg-main);
-    transform: translateY(-3px); /* Легке підняття вгору */
+    transform: translateY(-3px); 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -34,35 +34,33 @@
 }
 
 
-
-
-
-
-/* Контейнер для списку */
 .forms-grid {
-    list-style: none; /* Прибираємо маркери точок */
+    list-style: none; 
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; /* Чотири колонки */
-    gap: 16px; /* Відстань між кнопками */
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    gap: 16px; 
     margin-top: 20px;
 }
 
-/* Елемент списку (не обов'язково, але корисно для скидання відступів) */
+
 .form-item {
     margin: 0;
+    padding: 1rem 2rem;
+    background-color: var(--accent-soft);
+    border-radius: 8px;
 }
 
-/* Сама "кнопка" (посилання) */
+
 .form-link {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 100px; /* Робимо їх високими, як картки */
-    padding: 20px;
+    min-height: 150px; 
     
-    background-color: var(--accent-soft); /* Ваш м'ятний #85B79D */
+    
+    background-color: var(--accent-soft); 
     color: var(--text-dark);
     text-decoration: none;
     font-weight: 600;
@@ -71,10 +69,47 @@
     transition: all 0.2s ease-in-out;
 }
 
-/* Ефект при наведенні */
+
 .form-link:hover {
-    background-color: var(--action-color); /* Ваш фіолетовий #694873 */
+    background-color: var(--action-color); 
     color: var(--bg-main);
-    transform: translateY(-3px); /* Легке підняття вгору */
+    transform: translateY(-3px); 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.btn-responses {
+    top: 1rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+.btn-responses:hover {
+    background-color: var(--action-color); 
+    color: var(--bg-main);
+    transform: translateY(-3px); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+}
+
+.form-card {
+    position: relative;
+    padding: 20px;
+    background-color: var(--accent-soft); 
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+
+.form-title {
+    padding: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
 }

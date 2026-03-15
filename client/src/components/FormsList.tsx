@@ -1,18 +1,13 @@
 import React from 'react';
-import { useGetFormsQuery } from '../services/api';
+import { useFetchForms } from '../hooks/useFetchForms';
 import './FormList.css';
 import '../App.css';
-
+import { Link } from 'react-router-dom';
 const FormsList = () => {
-  // Викликаємо useGetFormsQuery без параметрів
-  const { data, error, isLoading } = useGetFormsQuery();
-
-  // Якщо дані ще завантажуються
+  const { forms, error, isLoading } = useFetchForms();
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
-  // Якщо сталася помилка
   if (error) {
     return <div>Error loading forms</div>;
   }
@@ -31,12 +26,21 @@ const FormsList = () => {
           </div>
       
           <div className='section'>
-            <ul className='forms-grid '> {/* Змінив назву класу для ясності */}
-              {data?.map((form: { id: string; title: string }) => (
+            <ul className='forms-grid '> 
+              {forms.map((form: { id: string; title: string }) => (
                 <li key={form.id} className='form-item'>
-                  <a href={`/forms/${form.id}/fill`} className='form-link font-family-sans-serif ' >
-                    {form.title}
-                  </a>
+                  <div className='font-family-sans-serif form-title'>
+                    <Link className='form-link font-family-sans-serif' to={`/forms/${form.id}/fill`}>
+                      {form.title}
+                    </Link>
+                  </div>
+                  <div className='btn btn-responses font-family-sans-serif'>
+                    <Link  to={`/forms/${form.id}/responses`}>
+                      Responses
+                    </Link>
+                  </div>
+                    
+                  
                 </li>
               ))}
             </ul>

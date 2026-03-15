@@ -6,7 +6,6 @@ const { buildSchema } = require('graphql');
 
 const app = express();
 
-// Додаємо CORS middleware
 app.use(cors());
 
 // Оголошуємо GraphQL схему
@@ -38,6 +37,7 @@ const schema = buildSchema(`
   }
 
   type Answer {
+    id: ID
     questionId: ID
     answer: String
   }
@@ -69,7 +69,6 @@ const schema = buildSchema(`
   }
 `);
 
-// Логіка для GraphQL
 let forms = [];
 let responses = [];
 
@@ -94,7 +93,10 @@ const root = {
     const newResponse = {
       id: String(responses.length + 1),
       formId,
-      answers,
+      answers: answers.map((a, idx) => ({
+        ...a,
+        id: `${formId}-${idx + 1}`,
+      })),
     };
     responses.push(newResponse);
     return newResponse;
@@ -124,16 +126,12 @@ const root = {
   },
 };
 
-// Підключення обробника для GraphQL
 app.all('/graphql', createHandler({
   schema: schema,
   rootValue: root,
 }));
 
-// Додамо статичні файли для GraphiQL
-// app.use('/graphiql', express.static(path.join(__dirname, 'node_modules', 'graphiql'))); // Зазначте шлях до локальних файлів
 
-// GUI для тестування GraphiQL
 app.get('/gui', (req, res) => {
   res.send(`
     <!DOCTYPE html>
@@ -158,7 +156,6 @@ app.get('/gui', (req, res) => {
   `);
 });
 
-// Запускаємо сервер
 app.listen(4000, () => {
   console.log('🚀 Server: http://localhost:4000/graphql');
   console.log('📊 GUI: http://localhost:4000/gui');
